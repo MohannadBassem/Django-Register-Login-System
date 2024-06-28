@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .background {
+            position: absolute;
+            inset: 0;
+            z-index: -10;
+            height: 100%;
+            width: 100%;
+            background-color: white;
+            background: linear-gradient(to right, #f0f0f0 1px, transparent 1px), 
+                        linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+            background-size: 6rem 4rem;
+        }
+
+        
+        .background-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            background: radial-gradient(circle 800px at 100% 200px, #d5c5ff, transparent);
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h3, h4 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+
+        .btn-custom {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            text-align: center;
+            padding: 12px 0;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom-signup {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-custom-signup:hover {
+            background-color: #218838;
+        }
+
+        .btn-custom-signin {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-custom-signin:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-custom-signout {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-custom-signout:hover {
+            background-color: #c82333;
+        }
+
+        .alert {
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInAlert 1s forwards;
+        }
+
+        .alert .close {
+            line-height: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInAlert {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="background">
+        <div class="background-overlay"></div>
+    </div>
+    <div class="container">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <strong>Message:</strong> {{ message }}
+            <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+
+        <h3>Welcome to RLS (Register.Login.System)</h3>
+
+        {% if user.is_authenticated %}
+        <h3>Hello {{ firstname }}!</h3>
+        <h4>You're successfully logged in.</h4>
+        <a href="/signout" class="btn-custom btn-custom-signout">SignOut</a>
+        {% else %}
+        <a href="/register" class="btn-custom btn-custom-signup">SignUp</a>
+        <a href="/signin" class="btn-custom btn-custom-signin">SignIn</a>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+</body>
+
+</html>
